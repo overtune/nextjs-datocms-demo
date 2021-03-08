@@ -4,4 +4,5 @@ export type Page = {
 	title: string;
 	content: any;
 	topImage: any;
+	seo: any;
 };

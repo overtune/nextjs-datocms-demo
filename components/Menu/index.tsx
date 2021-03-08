@@ -6,11 +6,11 @@ interface Props {
 }
 
 const renderMenuItem = (item: any) => (
-	<li key={item.id}>
+	<li key={item.id} className="mr-8">
 		<Link href={`/${item.slug}`}>{item.title}</Link>
-		{item.children.length > 0 && (
+			{/*item.children.length > 0 && (
 			<ul>{item.children.map(renderMenuItem)}</ul>
-		)}
+		)*/}
 	</li>
 );
 
@@ -20,11 +20,8 @@ const Menu: React.FC<Props> = ({ menu }) => {
 	}
 
 	return (
-		<nav aria-label="Menu" className="prose lg:prose-xl container mx-auto px-4 pt-12">
-			<ul>
-				<li>
-					<Link href="/">Startpage</Link>
-				</li>
+		<nav aria-label="Menu" className="container mx-auto">
+			<ul className="flex justify-start text-2xl font-medium">
 				{menu.map(renderMenuItem)}
 			</ul>
 		</nav>
