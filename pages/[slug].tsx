@@ -7,8 +7,11 @@ import {
 	getMenu,
 	getPageHeader,
 	getPageFooter,
+	getInformationBar,
 } from '@lib/datocms';
 import { Page } from '@lib/types';
+import InformationBar from '@components/InformationBar';
+import PreviewBar from '@components/PreviewBar';
 import PageHeader from '@components/PageHeader';
 import PageFooter from '@components/PageFooter';
 import Article from '@components/Article';
@@ -19,6 +22,8 @@ interface Props {
 	menu: any;
 	pageHeader: any;
 	pageFooter: any;
+	informationBar: any;
+	preview?: boolean;
 }
 
 const ArticlePage: React.FC<Props> = ({
@@ -27,9 +32,13 @@ const ArticlePage: React.FC<Props> = ({
 	menu,
 	pageHeader,
 	pageFooter,
+	informationBar,
+	preview,
 }) => (
 	<>
 		<Head>{renderMetaTags(page.seo.concat(site.favicon))}</Head>
+		{preview && <PreviewBar />}
+		<InformationBar informationBar={informationBar} />
 		<PageHeader pageHeader={pageHeader} menu={menu} />
 		<Article page={page} />
 		<PageFooter pageFooter={pageFooter} />
@@ -42,6 +51,7 @@ export const getStaticProps: GetStaticProps = async context => {
 	const menu = await getMenu(context.preview);
 	const pageHeader = await getPageHeader(context.preview);
 	const pageFooter = await getPageFooter(context.preview);
+	const informationBar = await getInformationBar(context.preview);
 
 	const page = allPages.find((p: Page) => p.slug === slug) || null;
 
@@ -57,6 +67,8 @@ export const getStaticProps: GetStaticProps = async context => {
 			menu,
 			pageHeader,
 			pageFooter,
+			informationBar,
+			preview: context?.preview || false,
 		},
 	};
 };
