@@ -1,5 +1,4 @@
-export default /* GraphQL */ `
-	{
+export const pageFooterFragment = /* GraphQL */ `
 		pageFooter {
 			columns {
 				... on LinkBlockRecord {
@@ -20,5 +19,8 @@ export default /* GraphQL */ `
 				}
 			}
 		}
-	}
+`;
+
+export default /* GraphQL */ `
+	{ ${pageFooterFragment} }
 `;

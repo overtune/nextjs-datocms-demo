@@ -1,5 +1,4 @@
-export default /* GraphQL */ `
-	{
+export const pageHeaderFragment = /* GraphQL */ `
 		pageHeader {
 			logo {
 				url
@@ -12,5 +11,8 @@ export default /* GraphQL */ `
 				}
 			}
 		}
-	}
+`;
+
+export default /* GraphQL */ `
+	{ ${pageHeaderFragment} }
 `;

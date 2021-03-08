@@ -1,5 +1,4 @@
-export default /* GraphQL */ `
-	{
+export const menuFragment = /* GraphQL */ `
 		allPages(filter: { parent: { exists: false } }) {
 			id
 			title
@@ -20,5 +19,8 @@ export default /* GraphQL */ `
 				}
 			}
 		}
-	}
+`;
+
+export default /* GraphQL */ `
+	{ ${menuFragment} }
 `;

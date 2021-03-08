@@ -1,15 +1,9 @@
 import React from 'react';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
-import { renderMetaTags } from 'react-datocms';
-import {
-	getStartpage,
-	getMenu,
-	getPageHeader,
-	getPageFooter,
-	getInformationBar,
-} from '@lib/datocms';
-import { Page } from '@lib/types';
+import { renderMetaTags, useQuerySubscription } from 'react-datocms';
+import getStartpageQuery from '@lib/queries/getStartpage';
+import { fetchFromDatoCms } from '@lib/datocms';
 import InformationBar from '@components/InformationBar';
 import PreviewBar from '@components/PreviewBar';
 import PageHeader from '@components/PageHeader';
@@ -17,56 +11,54 @@ import PageFooter from '@components/PageFooter';
 import Article from '@components/Article';
 
 interface Props {
-	page: Page;
-	site: any;
-	menu: any;
-	pageHeader: any;
-	pageFooter: any;
-	informationBar: any;
+	subscription: any;
 	preview?: boolean;
 }
 
-const Home: React.FC<Props> = ({
-	page,
-	site,
-	menu,
-	pageHeader,
-	pageFooter,
-	informationBar,
-	preview,
-}) => {
+const Home: React.FC<Props> = ({ subscription, preview }) => {
+	const { data, error, status } = useQuerySubscription(subscription);
+
 	return (
 		<>
-			<Head>{renderMetaTags(page.seo.concat(site.favicon))}</Head>
-			{preview && <PreviewBar />}
-			<InformationBar informationBar={informationBar} />
-			<PageHeader pageHeader={pageHeader} menu={menu} />
-			<Article page={page} />
-			<PageFooter pageFooter={pageFooter} />
+			{preview && <PreviewBar realtimeStatus={status} error={error} />}
+			{data?.informationBar && (
+				<InformationBar informationBar={data.informationBar} />
+			)}
+			{data?.pageHeader && (
+				<PageHeader pageHeader={data.pageHeader} menu={data.allPages} />
+			)}
+
+			{data?.site && data?.startpage && (
+				<Head>
+					{renderMetaTags(
+						data.startpage.seo.concat(data.site.favicon)
+					)}
+				</Head>
+			)}
+			{data?.startpage && <Article page={data.startpage} />}
+			{data?.pageFooter && <PageFooter pageFooter={data.pageFooter} />}
 		</>
 	);
 };
 
 export const getStaticProps: GetStaticProps = async context => {
-	const { startpage, site } = await getStartpage(context.preview);
-	const menu = await getMenu(context.preview);
-	const pageHeader = await getPageHeader(context.preview);
-	const pageFooter = await getPageFooter(context.preview);
-	const informationBar = await getInformationBar(context.preview);
+	const graphqlRequest = {
+		query: getStartpageQuery,
+		preview: context.preview,
+	};
 
-	if (!startpage) {
-		return {
-			notFound: true,
-		};
-	}
 	return {
 		props: {
-			page: startpage,
-			site,
-			menu,
-			pageHeader,
-			pageFooter,
-			informationBar,
+			subscription: context.preview
+				? {
+						...graphqlRequest,
+						initialData: await fetchFromDatoCms(graphqlRequest),
+						token: process.env.DATOCMS_READ_ONLY_API_TOKEN,
+				  }
+				: {
+						enabled: false,
+						initialData: await fetchFromDatoCms(graphqlRequest),
+				  },
 			preview: context?.preview || false,
 		},
 	};

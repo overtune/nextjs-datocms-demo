@@ -5,8 +5,8 @@ import { informationBarFragment } from './getInformationBar';
 import { siteMetaFragment } from './getSiteMeta';
 
 export default /* GraphQL */ `
-	{
-		allPages {
+query getPage($slug: String) {
+  page(filter: {slug: {eq: $slug}}) {
 			id
 			title
 			slug
@@ -90,5 +90,10 @@ export default /* GraphQL */ `
 				}
 			}
 		}
+		${menuFragment}
+		${pageHeaderFragment}
+		${pageFooterFragment}
+		${informationBarFragment}
+		${siteMetaFragment}
 	}
 `;

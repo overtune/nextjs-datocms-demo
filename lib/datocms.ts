@@ -1,4 +1,5 @@
 // import { Page } from '@lib/types';
+import tiny from 'tiny-json-http';
 import getStartpageQuery from './queries/getStartpage';
 import getMenuQuery from './queries/getMenu';
 import getAllPagesQuery from './queries/getAllPages';
@@ -8,8 +9,33 @@ import getInformationBarQuery from './queries/getInformationBar';
 
 const API_TOKEN = process.env.DATOCMS_READ_ONLY_API_TOKEN;
 
-async function fetchCmsAPI(
-	query: string,
+export async function fetchFromDatoCms({
+	query,
+	variables,
+	preview,
+}: {
+	query: any;
+	variables?: any;
+	preview: any;
+}) {
+	const endpoint = preview
+		? `https://graphql.datocms.com/preview`
+		: `https://graphql.datocms.com/`;
+	const { body } = await tiny.post({
+		url: endpoint,
+		headers: {
+			authorization: `Bearer ${API_TOKEN}`,
+		},
+		data: {
+			query,
+			variables,
+		},
+	});
+	return body.data;
+}
+
+export async function fetchCmsAPI(
+	query: any,
 	preview?: boolean,
 	{ variables }: { variables?: Record<string, any> } = {}
 ) {
