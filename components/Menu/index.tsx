@@ -20,8 +20,8 @@ const Menu: React.FC<Props> = ({ menu }) => {
 	}
 
 	return (
-		<nav aria-label="Menu" className="container mx-auto">
-			<ul className="flex justify-start text-2xl font-medium">
+		<nav aria-label="Menu" className="container px-4 mx-auto -mt-4 md:px-8 md:mt-0">
+			<ul className="flex justify-start mb-4 text-lg font-medium md:mb-0 lg:text-2xl">
 				{menu.map(renderMenuItem)}
 			</ul>
 		</nav>

@@ -10,7 +10,7 @@ const InformationBar: React.FC<Props> = ({ informationBar }) => {
 	}
 
 	return (
-		<div className="py-4 bg-red-400">
+		<div className="p-4 bg-red-400">
 			<div className="container mx-auto">
 				{informationBar.information}
 			</div>

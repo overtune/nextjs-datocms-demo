@@ -15,13 +15,13 @@ const renderTopLink = (link: any) => (
 
 const PageHeader: React.FC<Props> = ({ pageHeader, menu }) => {
 	return (
-		<div className="flex items-center justify-between">
+		<div className="md:flex md:justify-between md:items-center">
 			<Link href="/">
 				<img src={pageHeader.logo.url} />
 			</Link>
 			{menu && <Menu menu={menu} />}
 			{pageHeader.topLinks && (
-				<nav aria-label="Service links">
+				<nav aria-label="Service links" className="flex-shrink-0 hidden md:block">
 					<ul className="flex justify-between pt-4">
 						{pageHeader.topLinks.map(renderTopLink)}
 					</ul>
