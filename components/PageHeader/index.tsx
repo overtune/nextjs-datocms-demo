@@ -8,7 +8,7 @@ interface Props {
 }
 
 const renderTopLink = (link: any) => (
-	<li className="mr-4">
+	<li className="mr-4" key={link.id}>
 		<Link href={`/${link.slug}`}>{link.title}</Link>
 	</li>
 );

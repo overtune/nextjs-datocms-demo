@@ -40,6 +40,39 @@ export default /* GraphQL */ `
 						}
 					}
 				}
+				links {
+					__typename
+					... on PageRecord {
+						id
+						title
+						slug
+						topImage {
+							responsiveImage(
+								imgixParams: {
+									fm: jpg
+									fit: crop
+									minW: 100
+									minH: 100
+									maxW: 100
+									maxH: 100
+									w: 100
+									h: 100
+								}
+							) {
+								srcSet
+								webpSrcSet
+								sizes
+								src
+								width
+								height
+								aspectRatio
+								alt
+								title
+								base64
+							}
+						}
+					}
+				}
 			}
 			topImage {
 				responsiveImage(
