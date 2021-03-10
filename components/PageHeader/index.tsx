@@ -22,7 +22,7 @@ const PageHeader: React.FC<Props> = ({ pageHeader, menu }) => {
 			{menu && <Menu menu={menu} />}
 			{pageHeader.topLinks && (
 				<nav aria-label="Service links" className="flex-shrink-0 hidden md:block">
-					<ul className="flex justify-between pt-4">
+					<ul className="flex justify-between">
 						{pageHeader.topLinks.map(renderTopLink)}
 					</ul>
 				</nav>
