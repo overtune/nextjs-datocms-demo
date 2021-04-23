@@ -7,6 +7,7 @@ import { siteMetaFragment } from './getSiteMeta';
 export default /* GraphQL */ `
 	{
 		startpage {
+			id
 			title
 			seo: _seoMetaTags {
 				attributes
@@ -22,6 +23,39 @@ export default /* GraphQL */ `
 						image {
 							responsiveImage(
 								imgixParams: { fm: jpg, fit: crop, w: 1024 }
+							) {
+								srcSet
+								webpSrcSet
+								sizes
+								src
+								width
+								height
+								aspectRatio
+								alt
+								title
+								base64
+							}
+						}
+					}
+				}
+				links {
+					__typename
+					... on PageRecord {
+						id
+						title
+						slug
+						topImage {
+							responsiveImage(
+								imgixParams: {
+									fm: jpg
+									fit: crop
+									minW: 100
+									minH: 100
+									maxW: 100
+									maxH: 100
+									w: 100
+									h: 100
+								}
 							) {
 								srcSet
 								webpSrcSet

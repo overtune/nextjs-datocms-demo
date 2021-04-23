@@ -13,18 +13,18 @@
     "@tailwindcss/typography": "^0.4.0",
     "next": "10.0.7",
     "react": "17.0.1",
-    "react-datocms": "^1.5.5",
+    "react-datocms": "^1.6.0",
     "react-dom": "17.0.1",
     "react-timeago": "^5.2.0",
     "react-transition-group": "^4.4.1",
     "tiny-json-http": "^7.3.0"
   },
   "devDependencies": {
-    "@types/node": "^14.14.31",
-    "@types/react": "^17.0.2",
-    "autoprefixer": "^10.2.4",
-    "postcss": "^8.2.6",
-    "tailwindcss": "^2.0.3",
-    "typescript": "^4.2.2"
+    "@types/node": "^14.14.41",
+    "@types/react": "^17.0.3",
+    "autoprefixer": "^10.2.5",
+    "postcss": "^8.2.12",
+    "tailwindcss": "^2.1.2",
+    "typescript": "^4.2.4"
   }
 }

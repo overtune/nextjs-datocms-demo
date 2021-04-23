@@ -9,6 +9,7 @@ interface Props {
 
 const Article: React.FC<Props> = ({ page }) => {
 	const { title, content, topImage } = page;
+	console.log(content);
 
 	return (
 		<article>
@@ -20,11 +21,11 @@ const Article: React.FC<Props> = ({ page }) => {
 					renderBlock={({ record }: { record: any }) => {
 						switch (record.__typename) {
 							case 'ImageRecord':
-								return (
+								return record.image ? (
 									<Image
 										data={record.image.responsiveImage}
 									/>
-								);
+								) : null;
 							default:
 								return null;
 						}
@@ -35,15 +36,18 @@ const Article: React.FC<Props> = ({ page }) => {
 								return (
 									<div className="flex items-center">
 										<Link href={`/${record.slug}`}>
-											<Image
-												data={
-													record.topImage
-														.responsiveImage
-												}
-												explicitWidth={true}
-												pictureClassName="rounded-full"
-												className="mr-4 no-img-margin"
-											/>
+											{record.topImage
+												.responsiveImage && (
+												<Image
+													data={
+														record.topImage
+															.responsiveImage
+													}
+													explicitWidth={true}
+													pictureClassName="rounded-full"
+													className="mr-4 no-img-margin"
+												/>
+											)}
 										</Link>
 
 										<Link href={`/${record.slug}`}>
