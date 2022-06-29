@@ -9,11 +9,12 @@ interface Props {
 
 const Article: React.FC<Props> = ({ page }) => {
 	const { title, content, topImage } = page;
-	console.log(content);
 
 	return (
 		<article>
-			<Image data={topImage.responsiveImage} />
+			{topImage?.responsiveImage && (
+				<Image data={topImage.responsiveImage} layout="responsive" />
+			)}
 			<div className="container px-4 pt-12 mx-auto prose lg:prose-xl">
 				<h1>{title}</h1>
 				<StructuredText
@@ -43,7 +44,6 @@ const Article: React.FC<Props> = ({ page }) => {
 														record.topImage
 															.responsiveImage
 													}
-													explicitWidth={true}
 													pictureClassName="rounded-full"
 													className="mr-4 no-img-margin"
 												/>

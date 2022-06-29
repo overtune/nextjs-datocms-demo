@@ -17,6 +17,7 @@ export default /* GraphQL */ `
 						sizes
 						src
 						srcSet
+						webpSrcSet
 						width
 						alt
 						title

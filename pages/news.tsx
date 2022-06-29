@@ -70,16 +70,23 @@ const News: React.FC<Props> = ({ subscription, siteData, preview }) => {
 											)}
 										</div>
 										<div className="items-center pb-12 mt-4 text-xs text-gray-500 grid grid-cols-2 md:text-sm md:px-8">
-											<div className="flex items-center">
-												<Image
-													className="w-6 h-6 mr-2 rounded-full shadow"
-													data={
-														news.author.avatar
-															.responsiveImage
-													}
-												/>
-												<div>{news.author.name}</div>
-											</div>
+											{news.author && (
+												<div className="flex items-center h-6">
+													<div className="w-6 mr-2">
+														<Image
+															className="w-6 h-6 mr-2 rounded-full shadow"
+															data={
+																news.author
+																	.avatar
+																	.responsiveImage
+															}
+														/>
+													</div>
+													<div>
+														{news.author.name}
+													</div>
+												</div>
+											)}
 											<div className="text-right">
 												<TimeAgo
 													date={
